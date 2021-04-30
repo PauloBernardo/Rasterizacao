@@ -2,6 +2,9 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
+LIMITE_MINIMO_SRU = (0, 0)
+LIMITE_MAXIMO_SRU = (160, 100)
+
 
 class Resolucoes:
     QQVGA = (160, 120)
@@ -11,7 +14,15 @@ class Resolucoes:
 
 
 def render(matriz, resolucao, title="Reta"):
+    """
+    Renderiza a matriz com pyplot.imshow
+    :param matriz: um matriz bidimensional, do tipo ndarray
+    :param resolucao: uma tupla que possui os valores da resolução (x, y)
+    :param title: string que será mostrada como titulo da imagem
+    :return: void
+    """
     plt.imshow(matriz, cmap='gray_r')
+    plt.xticks(rotation=-90)
     plt.grid(True)
     plt.xlabel(resolucao[1])
     plt.ylabel(resolucao[0])
@@ -19,29 +30,34 @@ def render(matriz, resolucao, title="Reta"):
     plt.show()
 
 
-def produz_fragmento(x, y, valor_correcao=0.5):
+def produz_fragmento(x, y):
     x_m = math.floor(x)
     y_m = math.floor(y)
-    x_p = x_m + valor_correcao
-    y_p = y_m + valor_correcao
+    x_p = x_m + 0.5
+    y_p = y_m + 0.5
     return x_p, y_p
 
 
 def rasteriza_reta(ponto1, ponto2, resolucao, matriz=None):
+    """
+    A função rasteriza_reta faz a rasterização de uma reta definida por dois pontos, ponto1
+    e ponto2, que representam os pontos extremos da reta.
+    Os limites dos pontos são LIMITE_MINIMO_SRU e LIMITE_MAXIMO_SRU.
+    :param ponto1: tupla que guarda o valor x e y de um dos pontos extremos da reta
+    :param ponto2: tupla que guarda o valor x e y de um dos pontos extremos da reta
+    :param resolucao: resolução no qual a reta deve ser representada
+    :param matriz: opcional, representa uma matriz do tipo ndarray
+    :return: retorna uma matriz do tipo ndarray
+    """
     title = f"Desenho de uma reta ({ponto1[0]},{ponto1[1]}) ({ponto2[0]}, {ponto2[1]})"
-    print(ponto1, ponto2)
-
-    # Normaliza os valores
-    ponto1 = (ponto1[0] * 0.01, ponto1[1] * 0.01)
-    ponto2 = (ponto2[0] * 0.01, ponto2[1] * 0.01)
-
-    # print(ponto1, ponto2)
 
     # Converte o SRU para o SRD
-    ponto1 = (ponto1[0] * resolucao[0] / 1, (ponto1[1] * resolucao[1] / 1) - resolucao[1])
-    ponto2 = (ponto2[0] * resolucao[0] / 1, (ponto2[1] * resolucao[1] / 1) - resolucao[1])
+    ponto1 = (ponto1[0] * resolucao[0] / (LIMITE_MAXIMO_SRU[0] - LIMITE_MINIMO_SRU[0]),
+              (ponto1[1] * resolucao[1] / (LIMITE_MAXIMO_SRU[1] - LIMITE_MINIMO_SRU[1])) - resolucao[1])
+    ponto2 = (ponto2[0] * resolucao[0] / (LIMITE_MAXIMO_SRU[0] - LIMITE_MINIMO_SRU[0]),
+              (ponto2[1] * resolucao[1] / (LIMITE_MAXIMO_SRU[1] - LIMITE_MINIMO_SRU[1])) - resolucao[1])
 
-    # print(ponto1, ponto2)
+    # Forma equação da reta
     x = ponto1[0]
     y = ponto1[1]
     dx = ponto2[0] - ponto1[0]
@@ -51,8 +67,9 @@ def rasteriza_reta(ponto1, ponto2, resolucao, matriz=None):
     else:
         m = dy / dx
     b = y - m * x
-    pontos = []
-    pontos.append(produz_fragmento(x, y))
+
+    # Rasteriza
+    pontos = [produz_fragmento(x, y)]
     if math.fabs(dx) > math.fabs(dy):
         if x < ponto2[0]:
             while x < ponto2[0]:
@@ -76,8 +93,7 @@ def rasteriza_reta(ponto1, ponto2, resolucao, matriz=None):
                 x = (y - b) / m if m else x
                 pontos.append(produz_fragmento(x, y))
 
-    # print(pontos)
-
+    # Forma matriz e renderiza
     if matriz is not None:
         for ponto in pontos:
             matriz[math.floor(ponto[0])][math.floor(ponto[1])] = 1
@@ -87,6 +103,7 @@ def rasteriza_reta(ponto1, ponto2, resolucao, matriz=None):
         for ponto in pontos:
             matriz[math.floor(ponto[0])][math.floor(ponto[1])] = 1
         render(matriz, resolucao, title)
+        return matriz
 
 
 def desenha_face(face, resolucao, matriz):
@@ -99,6 +116,12 @@ def desenha_face(face, resolucao, matriz):
 
 
 def desenha_quadrado(size, resolucao):
+    """
+    Desenha um quadrado com um tamanho definido em size
+    :param size: valor do tamanho do quadrado
+    :param resolucao: resolução na qual deve ser desenhado
+    :return: void
+    """
     matriz = np.zeros([resolucao[0] + 1, resolucao[1] + 1])
     vertices = [
         (1, 1),
@@ -116,6 +139,12 @@ def desenha_quadrado(size, resolucao):
 
 
 def desenha_triangulo(size, resolucao):
+    """
+    Desenha um triangulo com um tamanho definido em size
+    :param size: valor do tamanho do triangulo
+    :param resolucao: resolução na qual deve ser desenhado
+    :return: void
+    """
     matriz = np.zeros([resolucao[0] + 1, resolucao[1] + 1])
     vertices = [
         (1, 1),
@@ -132,6 +161,12 @@ def desenha_triangulo(size, resolucao):
 
 
 def desenha_pentagono(size, resolucao):
+    """
+    Desenha um pentagono com o tamanho definido em size
+    :param size: valor do tamanho do pentagono
+    :param resolucao: resolução na qual deve ser desenhado
+    :return: void
+    """
     matriz = np.zeros([resolucao[0] + 1, resolucao[1] + 1])
     vertices = [
         (size / 2, 1),
@@ -142,7 +177,7 @@ def desenha_pentagono(size, resolucao):
         (size / 2, size / 1.5)
     ]
     faces = [
-        [vertices[0], vertices[1],  vertices[2],  vertices[4], vertices[3]],
+        [vertices[0], vertices[1], vertices[2], vertices[4], vertices[3]],
         [vertices[5], vertices[0], vertices[1]],
         [vertices[5], vertices[1], vertices[2]],
         [vertices[5], vertices[2], vertices[4]],
@@ -154,7 +189,13 @@ def desenha_pentagono(size, resolucao):
     render(matriz, resolucao, "Desenho de um Pentágono")
 
 
-def desenha_casa(size, resolucao, rotate=0):
+def desenha_casa(size, resolucao):
+    """
+    Desenha um casa com um tamanho definido em size
+    :param size: valor do tamanho da casa
+    :param resolucao: resolução na qual deve ser desenhada
+    :return: void
+    """
     matriz = np.zeros([resolucao[0] + 1, resolucao[1] + 1])
     vertices = [
         (1, 1),
@@ -189,6 +230,7 @@ def desenha_casa(size, resolucao, rotate=0):
 
 
 if __name__ == "__main__":
+    # Rasterização de retas nas diferentes resoluções
     rasteriza_reta((0, 0), (90, 30), Resolucoes.QQVGA)
     rasteriza_reta((0, 0), (30, 90), Resolucoes.QQVGA)
     rasteriza_reta((30, 80), (90, 20), Resolucoes.QQVGA)
@@ -199,10 +241,12 @@ if __name__ == "__main__":
     rasteriza_reta((0, 0), (30, 90), Resolucoes.VGA)
     rasteriza_reta((30, 80), (90, 20), Resolucoes.VGA)
 
-    # rasteriza_reta((1, 8), (8, 8), Resolucoes.QVGA)
-    # rasteriza_reta((8, 1), (8, 8), Resolucoes.QVGA)
-    #
-    # desenha_quadrado(40, Resolucoes.QQVGA)
-    # desenha_triangulo(40, Resolucoes.QQVGA)
-    # desenha_pentagono(40, Resolucoes.QQVGA)
-    # desenha_casa(30, Resolucoes.QQVGA)
+    # Rasterização de retas verticais e horizontais
+    rasteriza_reta((1, 80), (80, 80), Resolucoes.QQVGA)
+    rasteriza_reta((80, 1), (80, 80), Resolucoes.QQVGA)
+
+    # Rasterização de poligonos
+    desenha_quadrado(40, Resolucoes.QQVGA)
+    desenha_triangulo(40, Resolucoes.QQVGA)
+    desenha_pentagono(40, Resolucoes.QQVGA)
+    desenha_casa(30, Resolucoes.QQVGA)
