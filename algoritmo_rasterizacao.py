@@ -2,8 +2,8 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-LIMITE_MINIMO_SRU = (0, 0)
-LIMITE_MAXIMO_SRU = (160, 100)
+LIMITE_MINIMO_SRU = (-80, -50)
+LIMITE_MAXIMO_SRU = (80, 50)
 
 
 class Resolucoes:
@@ -115,7 +115,14 @@ def desenha_face(face, resolucao, matriz):
     return matriz
 
 
-def desenha_quadrado(size, resolucao):
+def apply_transformation(vertices, scale, rX, rY, aX, aY):
+    vertices = vertices * np.matrix([[scale, 0], [0, scale]])
+    vertices = vertices * np.matrix([[rY, 0], [0, rX]])
+    vertices = vertices * np.matrix([[1, aY], [aX, 1]])
+    return vertices
+
+
+def desenha_quadrado(size, resolucao, rX=1, rY=1, aX=0, aY=0):
     """
     Desenha um quadrado com um tamanho definido em size
     :param size: valor do tamanho do quadrado
@@ -123,12 +130,14 @@ def desenha_quadrado(size, resolucao):
     :return: void
     """
     matriz = np.zeros([resolucao[0] + 1, resolucao[1] + 1])
-    vertices = [
-        (1, 1),
-        (1, size),
-        (size, 1),
-        (size, size),
-    ]
+    vertices = np.matrix([
+        [1, 1],
+        [1, 10],
+        [10, 1],
+        [10, 10],
+    ])
+    vertices = apply_transformation(vertices, size, rX, rY, aX, aY)
+    vertices = vertices.A
     faces = [
         [vertices[0], vertices[1], vertices[3], vertices[2]],
     ]
@@ -138,7 +147,7 @@ def desenha_quadrado(size, resolucao):
     render(matriz, resolucao, "Desenho de um quadrado")
 
 
-def desenha_triangulo(size, resolucao):
+def desenha_triangulo(size, resolucao, rX=1, rY=1, aX=0, aY=0):
     """
     Desenha um triangulo com um tamanho definido em size
     :param size: valor do tamanho do triangulo
@@ -146,11 +155,13 @@ def desenha_triangulo(size, resolucao):
     :return: void
     """
     matriz = np.zeros([resolucao[0] + 1, resolucao[1] + 1])
-    vertices = [
-        (1, 1),
-        (size, 1),
-        (size / 2, size),
-    ]
+    vertices = np.matrix([
+        [1, 1],
+        [10, 1],
+        [10 / 2, 10],
+    ])
+    vertices = apply_transformation(vertices, size, rX, rY, aX, aY)
+    vertices = vertices.A
     faces = [
         [vertices[0], vertices[2], vertices[1]],
     ]
@@ -160,7 +171,7 @@ def desenha_triangulo(size, resolucao):
     render(matriz, resolucao, "Desenho de um triângulo")
 
 
-def desenha_pentagono(size, resolucao):
+def desenha_pentagono(size, resolucao, rX=1, rY=1, aX=0, aY=0):
     """
     Desenha um pentagono com o tamanho definido em size
     :param size: valor do tamanho do pentagono
@@ -168,14 +179,16 @@ def desenha_pentagono(size, resolucao):
     :return: void
     """
     matriz = np.zeros([resolucao[0] + 1, resolucao[1] + 1])
-    vertices = [
-        (size / 2, 1),
-        (1, size / 1.5),
-        (size / 2, size * 1.3),
-        (size, size / 2),
-        (size, size),
-        (size / 2, size / 1.5)
-    ]
+    vertices = np.matrix([
+        [10 / 2, 1],
+        [1, 10 / 1.5],
+        [10 / 2, 10 * 1.3],
+        [10, 10 / 2],
+        [10, 10],
+        [10 / 2, 10 / 1.5]
+    ])
+    vertices = apply_transformation(vertices, size, rX, rY, aX, aY)
+    vertices = vertices.A
     faces = [
         [vertices[0], vertices[1], vertices[2], vertices[4], vertices[3]],
         [vertices[5], vertices[0], vertices[1]],
@@ -189,7 +202,7 @@ def desenha_pentagono(size, resolucao):
     render(matriz, resolucao, "Desenho de um Pentágono")
 
 
-def desenha_casa(size, resolucao):
+def desenha_casa(size, resolucao, rX=1, rY=1.0, aX=0.0, aY=0.0):
     """
     Desenha um casa com um tamanho definido em size
     :param size: valor do tamanho da casa
@@ -197,24 +210,26 @@ def desenha_casa(size, resolucao):
     :return: void
     """
     matriz = np.zeros([resolucao[0] + 1, resolucao[1] + 1])
-    vertices = [
-        (1, 1),
-        (1, size),
-        (size, 1),
-        (size, size),
-        (size / 2, size + size),
-        (size / 3, 1),
-        (size / 3, size / 2),
-        (size / 2, 1),
-        (size / 2, size / 2),
-        (size + size / 3, size / 3),
-        (size + size / 3, size / 1.5),
-        (size + size / 1.5, size / 3),
-        (size + size / 1.5, size / 1.5),
-        (size + size, 1),
-        (size + size, size),
-        (size + size, size + size),
-    ]
+    vertices = np.matrix([
+        [1, 1],
+        [1, 10],
+        [10, 1],
+        [10, 10],
+        [10 / 2, 10 + 10],
+        [10 / 3, 1],
+        [10 / 3, 10 / 2],
+        [10 / 2, 1],
+        [10 / 2, 10 / 2],
+        [10 + 10 / 3, 10 / 3],
+        [10 + 10 / 3, 10 / 1.5],
+        [10 + 10 / 1.5, 10 / 3],
+        [10 + 10 / 1.5, 10 / 1.5],
+        [10 + 10, 1],
+        [10 + 10, 10],
+        [10 + 10, 10 + 10],
+    ])
+    vertices = apply_transformation(vertices, size, rX, rY, aX, aY)
+    vertices = vertices.A
     faces = [
         [vertices[0], vertices[1], vertices[3], vertices[2]],
         [vertices[1], vertices[4], vertices[3]],
@@ -231,22 +246,22 @@ def desenha_casa(size, resolucao):
 
 if __name__ == "__main__":
     # Rasterização de retas nas diferentes resoluções
-    rasteriza_reta((0, 0), (90, 30), Resolucoes.QQVGA)
-    rasteriza_reta((0, 0), (30, 90), Resolucoes.QQVGA)
-    rasteriza_reta((30, 80), (90, 20), Resolucoes.QQVGA)
-    rasteriza_reta((0, 0), (90, 30), Resolucoes.QVGA)
-    rasteriza_reta((0, 0), (30, 90), Resolucoes.QVGA)
-    rasteriza_reta((30, 80), (90, 20), Resolucoes.QVGA)
-    rasteriza_reta((0, 0), (90, 30), Resolucoes.VGA)
-    rasteriza_reta((0, 0), (30, 90), Resolucoes.VGA)
-    rasteriza_reta((30, 80), (90, 20), Resolucoes.VGA)
+    # rasteriza_reta((0, 0), (90, 30), Resolucoes.QQVGA)
+    # rasteriza_reta((0, 0), (30, 90), Resolucoes.QQVGA)
+    # rasteriza_reta((30, 80), (90, 20), Resolucoes.QQVGA)
+    # rasteriza_reta((0, 0), (90, 30), Resolucoes.QVGA)
+    # rasteriza_reta((0, 0), (30, 90), Resolucoes.QVGA)
+    # rasteriza_reta((30, 80), (90, 20), Resolucoes.QVGA)
+    # rasteriza_reta((0, 0), (90, 30), Resolucoes.VGA)
+    # rasteriza_reta((0, 0), (30, 90), Resolucoes.VGA)
+    # rasteriza_reta((30, 80), (90, 20), Resolucoes.VGA)
 
     # Rasterização de retas verticais e horizontais
-    rasteriza_reta((1, 80), (80, 80), Resolucoes.QQVGA)
-    rasteriza_reta((80, 1), (80, 80), Resolucoes.QQVGA)
+    # rasteriza_reta((1, 80), (80, 80), Resolucoes.QQVGA)
+    # rasteriza_reta((80, 1), (80, 80), Resolucoes.QQVGA)
 
     # Rasterização de poligonos
-    desenha_quadrado(40, Resolucoes.QQVGA)
-    desenha_triangulo(40, Resolucoes.QQVGA)
-    desenha_pentagono(40, Resolucoes.QQVGA)
-    desenha_casa(30, Resolucoes.QQVGA)
+    # desenha_quadrado(3, Resolucoes.QQVGA, 1, 1, 0.25, 0)
+    # desenha_triangulo(4, Resolucoes.QQVGA, 2, 2, 0.3, 0)
+    # desenha_pentagono(5, Resolucoes.QQVGA, 1, 1, -0.2, -0.2)
+    desenha_casa(3.8, Resolucoes.QQVGA, 1, 1, 0.2, 0.3)
