@@ -27,10 +27,24 @@ def q2(cube, parallel, pyramid, tronco):
     # plot vertices
     ax.scatter3D(points[:, 0], points[:, 1], points[:, 2])
 
-    ax.add_collection3d(Poly3DCollection(get_rectangle_faces(cube),
-                                         facecolors="cyan", linewidths=1, edgecolors="r", alpha=.25))
-    ax.add_collection3d(Poly3DCollection(get_triangle_faces(pyramid),
-                                         facecolors="red", linewidths=1, edgecolors="r", alpha=.25))
+    ax.add_collection3d(
+        Poly3DCollection(
+            get_rectangle_faces(cube),
+            facecolors="cyan",
+            linewidths=1,
+            edgecolors="r",
+            alpha=0.25,
+        )
+    )
+    ax.add_collection3d(
+        Poly3DCollection(
+            get_triangle_faces(pyramid),
+            facecolors="red",
+            linewidths=1,
+            edgecolors="r",
+            alpha=0.25,
+        )
+    )
 
     # ax.add_collection3d(Poly3DCollection(get_rectangle_faces(parallel),
     #                                      facecolors="green", linewidths=1, edgecolors="r", alpha=.25))

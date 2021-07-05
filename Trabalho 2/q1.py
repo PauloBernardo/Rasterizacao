@@ -40,41 +40,58 @@ def q1(cube_points, parallel_points, pyramid_points, tronco_points):
 
     # QUESTÃO 1 - EXTRA -> MESCLANDO OBJETOS - TRONCO COM PIRÂMIDE
     def extra():
-        points = np.array([[-1.5, -1.5, 0],
-                           [1.5, -1.5, 0],
-                           [1.5, 1.5, 0],
-                           [-1.5, 1.5, 0],
-                           [-0.65, -0.65, 2.5],
-                           [0.65, -0.65, 2.5],
-                           [0.65, 0.65, 2.5],
-                           [-0.65, 0.65, 2.5]])
+        points = np.array(
+            [
+                [-1.5, -1.5, 0],
+                [1.5, -1.5, 0],
+                [1.5, 1.5, 0],
+                [-1.5, 1.5, 0],
+                [-0.65, -0.65, 2.5],
+                [0.65, -0.65, 2.5],
+                [0.65, 0.65, 2.5],
+                [-0.65, 0.65, 2.5],
+            ]
+        )
 
-        points2 = np.array([[-0.65, -0.65, 2.5],
-                            [0.65, -0.65, 2.5],
-                            [-0.65, 0.65, 2.5],
-                            [0.65, 0.65, 2.5],
-                           [0, 0, 4]])
+        points2 = np.array(
+            [
+                [-0.65, -0.65, 2.5],
+                [0.65, -0.65, 2.5],
+                [-0.65, 0.65, 2.5],
+                [0.65, 0.65, 2.5],
+                [0, 0, 4],
+            ]
+        )
 
         ax2, verts2 = make_triangle(points2)
         ax, verts = make_rectangle(points)
 
-        points = np.array([[-1.5, -1.5, 0],
-                           [1.5, -1.5, 0],
-                           [1.5, 1.5, 0],
-                           [-1.5, 1.5, 0],
-                           [-0.65, -0.65, 2.5],
-                           [0.65, -0.65, 2.5],
-                           [0.65, 0.65, 2.5],
-                           [-0.65, 0.65, 2.5],
-                           [0, 0, 4]])
-
+        points = np.array(
+            [
+                [-1.5, -1.5, 0],
+                [1.5, -1.5, 0],
+                [1.5, 1.5, 0],
+                [-1.5, 1.5, 0],
+                [-0.65, -0.65, 2.5],
+                [0.65, -0.65, 2.5],
+                [0.65, 0.65, 2.5],
+                [-0.65, 0.65, 2.5],
+                [0, 0, 4],
+            ]
+        )
 
         ax.scatter3D(points[:, 0], points[:, 1], points[:, 2])
 
-        ax.add_collection3d(Poly3DCollection(verts,
-                                             facecolors="yellow", linewidths=1, edgecolors="b", alpha=.25))
-        ax.add_collection3d(Poly3DCollection(verts2,
-                                             facecolors="red", linewidths=1, edgecolors="w", alpha=.25))
+        ax.add_collection3d(
+            Poly3DCollection(
+                verts, facecolors="yellow", linewidths=1, edgecolors="b", alpha=0.25
+            )
+        )
+        ax.add_collection3d(
+            Poly3DCollection(
+                verts2, facecolors="red", linewidths=1, edgecolors="w", alpha=0.25
+            )
+        )
         ax.set_xlabel("X")
         ax.set_ylabel("Y")
         ax.set_zlabel("Z")
