@@ -15,22 +15,25 @@ def get_rectangle_faces(Z):
     ]
 
 
-def make_rectangle(points):
-    P = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+def make_scale(points, x=1, y=1, z=1):
+    m = [[x, 0, 0], [0, z, 0], [0, 0, y]]
 
-    Z = np.zeros((8, 3))
+    p = np.zeros((8, 3))
     for i in range(8):
-        Z[i, :] = np.dot(points[i, :], P)
-    Z = 1 * Z
+        p[i, :] = np.dot(points[i, :], m)
 
+    return p
+
+
+def make_rectangle(points):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection="3d")
 
     # plot vertices
-    ax.scatter3D(Z[:, 0], Z[:, 1], Z[:, 2])
+    ax.scatter3D(points[:, 0], points[:, 1], points[:, 2])
 
     # list of sides" polygons of figure
-    verts = get_rectangle_faces(Z)
+    verts = get_rectangle_faces(points)
 
     return ax, verts
 
@@ -46,21 +49,14 @@ def get_triangle_faces(Z):
 
 
 def make_triangle(points):
-    P = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-
-    Z = np.zeros((5, 3))
-    for i in range(5):
-        Z[i, :] = np.dot(points[i, :], P)
-    Z = 1 * Z
-
     fig = plt.figure()
     ax = fig.add_subplot(111, projection="3d")
 
     # plot vertices
-    ax.scatter3D(Z[:, 0], Z[:, 1], Z[:, 2])
+    ax.scatter3D(points[:, 0], points[:, 1], points[:, 2])
 
     # list of sides" polygons of figure
-    verts = get_triangle_faces(Z)
+    verts = get_triangle_faces(points)
 
     return ax, verts
 
