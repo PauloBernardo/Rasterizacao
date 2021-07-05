@@ -2,6 +2,7 @@ import numpy as np
 
 from q2 import q2
 from q1 import q1
+from q3 import q3
 
 if __name__ == "__main__":
     cube_points = np.array(
@@ -45,8 +46,11 @@ if __name__ == "__main__":
         ]
     )
 
-    # PRIMEIRA QUESTÃO
-    q1(cube_points, parallel_points, pyramid_points, tronco_points)
-
+    # # PRIMEIRA QUESTÃO
+    # q1(cube_points, parallel_points, pyramid_points, tronco_points)
+    #
     # SEGUNDA QUESTÃO
-    q2(cube_points, parallel_points, pyramid_points, tronco_points)
+    cube_points,_,pyramid_points,_ = q2(cube_points, parallel_points, pyramid_points, tronco_points)
+
+    # TERCEIRA QUESTÃO
+    q3(cube_points,pyramid_points)
