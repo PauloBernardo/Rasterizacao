@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
 
     # PRIMEIRA QUESTÃO
-    q1(cube_points, parallel_points, pyramid_points, tronco_points
+    q1(cube_points, parallel_points, pyramid_points, tronco_points)
 
     # SEGUNDA QUESTÃO
     q2(cube_points, parallel_points, pyramid_points, tronco_points)
