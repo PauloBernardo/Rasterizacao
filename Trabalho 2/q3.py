@@ -75,3 +75,5 @@ def q3(cube, pyramid):
     ax.set_zlabel("Z")
 
     plt.show()
+
+    return cubo_projetado,piramide_projetada

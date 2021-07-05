@@ -1,11 +1,29 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from utils import get_rectangle_faces, get_triangle_faces
+from utils import get_rectangle_faces, get_triangle_faces, make_rectangle, plot_image, make_triangle, iterable_to_list, \
+    get_edges
 
 
 def q4(cube, pyramid):
-    # X,Y,Z
-    ponto_camera = [5,5,-5]
+    matriz_projecao = [[1, 0, 0], [0, 1, 0], [0, 0, 0]]
 
-    print(cube,pyramid)
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+
+    cube_faces = get_rectangle_faces(np.dot(cube, matriz_projecao))
+    arestas = get_edges(cube_faces)
+    arestas = iterable_to_list(arestas)
+
+    for aresta in arestas:
+        aresta = np.array(aresta)
+        ax.plot(aresta[:, 0], aresta[:, 1], color='blue')
+
+    cube_faces = get_triangle_faces(np.dot(pyramid, matriz_projecao))
+    arestas = get_edges(cube_faces)
+    arestas = iterable_to_list(arestas)
+
+    for aresta in arestas:
+        aresta = np.array(aresta)
+        ax.plot(aresta[:, 0], aresta[:, 1], color='red')
+
+    plt.show()

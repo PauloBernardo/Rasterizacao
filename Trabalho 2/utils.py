@@ -1,3 +1,5 @@
+from collections.abc import Iterable
+
 import numpy as np
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import matplotlib.pyplot as plt
@@ -97,3 +99,29 @@ def plot_image(ax, verts, side_color="cyan", line_color="r"):
     ax.set_zlabel("Z")
 
     plt.show()
+
+def get_face_edges(face):
+    faces = set()
+    qnt_points = len(face)
+    for i in range(qnt_points):
+        faces.add(((face[i][0], face[i][1]), (face[(i + 1) % qnt_points][0], face[(i + 1) % qnt_points][1])))
+    return faces
+
+
+def get_edges(cube):
+    edges = set()
+    for i in cube:
+        edges = edges.union(get_face_edges(i))
+    return edges
+
+
+def iterable_to_list(data):
+    if isinstance(data, Iterable):
+        data = list(data)
+        for i, item in enumerate(data):
+            print(item)
+            data[i] = iterable_to_list(item)
+    else:
+        return data
+    return data
+
