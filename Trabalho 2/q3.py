@@ -6,7 +6,7 @@ from utils import get_rectangle_faces, get_triangle_faces, make_rectangle, plot_
 
 def q3(cube, pyramid):
     # X,Y,Z
-    ponto_camera = np.array([5, 5, -5])
+    ponto_camera = np.array([3, 3, -3])
 
     cube = np.array(cube)
     centro_cubo = [(max(cube[:, i]) + min(cube[:, i])) / 2 for i in range(3)]
