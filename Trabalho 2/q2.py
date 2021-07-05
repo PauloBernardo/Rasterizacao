@@ -1,21 +1,18 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from utils import get_rectangle_faces, get_triangle_faces, make_scale
+from utils import get_rectangle_faces, get_triangle_faces, make_scale, make_translation
 
 
 def q2(cube, parallel, pyramid, tronco):
-    # Escala do tronco
+    # Escalas
     tronco = make_scale(tronco, 0.5, 0.5, 0.5)
 
-    # Translação do cubo
-    cube = np.array([[x[0] + 1, x[1] + 1, x[2] + 1] for x in cube])
-    # Translação do paralelepipedo
-    parallel = np.array([[x[0] - 5, x[1] - 6, x[2] + 1] for x in parallel])
-    # Translação da piramide
-    pyramid = np.array([[x[0] + 3, x[1] + 3, x[2] + 1] for x in pyramid])
-    # Translação do tronco
-    tronco = np.array([[x[0] - 2, x[1] - 3, x[2] + 1] for x in tronco])
+    # Translaçẽs
+    cube = make_translation(cube, 1, 1, 1)
+    parallel = make_translation(parallel, -5, -6, 1)
+    pyramid = make_translation(pyramid, 3, 3, 1)
+    tronco = make_translation(tronco, -2, -3, 1)
 
     all_points = []
     all_points.extend(cube.tolist())
@@ -78,3 +75,5 @@ def q2(cube, parallel, pyramid, tronco):
     ax.set_zlabel("Z")
 
     plt.show()
+
+    return cube, parallel, pyramid, tronco

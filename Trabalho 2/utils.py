@@ -15,6 +15,25 @@ def get_rectangle_faces(Z):
     ]
 
 
+def make_translation(points, x=0, y=0, z=0):
+    m = np.matrix(
+        [
+            [1, 0, 0, x],
+            [0, 1, 0, y],
+            [0, 0, 1, z],
+            [0, 0, 0, 1]
+        ]
+    )
+    p = np.ones((len(points) + 1, 4))
+    for i in range(len(points)):
+        p[i][0] = points[i][0]
+        p[i][1] = points[i][1]
+        p[i][2] = points[i][2]
+
+    p = (m * p.transpose()).transpose()[0:8]
+    return np.array([[point[0], point[1], point[2]] for point in p.A])
+
+
 def make_scale(points, x=1, y=1, z=1):
     m = [[x, 0, 0], [0, z, 0], [0, 0, y]]
 
