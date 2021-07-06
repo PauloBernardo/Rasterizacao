@@ -34,6 +34,8 @@ def draw_camera_and_vectors_in_world(ponto_camera, vetor_up, vetor_n, vetor_u, v
     fig = plt.figure()
     ax = fig.add_subplot(111, projection="3d")
 
+    ax.text(*[ponto_camera[0] + 1, ponto_camera[1] - 2, ponto_camera[2] - 1], "Câmera", c="Black")
+
     # plot vertices
     ax.scatter3D(points[:, 0], points[:, 1], points[:, 2])
 
@@ -91,7 +93,7 @@ def draw_camera_and_vectors_in_world(ponto_camera, vetor_up, vetor_n, vetor_u, v
 
     soa = np.array([
         [ponto_camera[0], ponto_camera[1], ponto_camera[2], vetor_up[0] * 3, vetor_up[1] * 3, vetor_up[2] * 3],
-        [ponto_camera[0], ponto_camera[1], ponto_camera[2], vetor_n[0] * 3, vetor_n[1] * 3, vetor_n[2] * 3],
+        [ponto_camera[0], ponto_camera[1], ponto_camera[2], vetor_n[0] * -3, vetor_n[1] * -3, vetor_n[2] * -3],
         [ponto_camera[0], ponto_camera[1], ponto_camera[2], vetor_u[0] * 3, vetor_u[1] * 3, vetor_u[2] * 3],
         [ponto_camera[0], ponto_camera[1], ponto_camera[2], vetor_v[0] * 3, vetor_v[1] * 3, vetor_v[2] * 3]
     ])
