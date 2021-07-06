@@ -74,6 +74,8 @@ def q2(cube, parallel, pyramid, tronco):
     ax.set_ylabel("Y")
     ax.set_zlabel("Z")
 
+
+
     plt.show()
 
     return cube, parallel, pyramid, tronco

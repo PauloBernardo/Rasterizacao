@@ -48,13 +48,13 @@ if __name__ == "__main__":
     )
 
     # # PRIMEIRA QUESTÃO
-    # q1(cube_points, parallel_points, pyramid_points, tronco_points)
-    #
+    q1(cube_points, parallel_points, pyramid_points, tronco_points)
+
     # SEGUNDA QUESTÃO
-    cube_points,_,pyramid_points,_ = q2(cube_points, parallel_points, pyramid_points, tronco_points)
+    cube_points, parallel_points, pyramid_points, tronco_points = q2(cube_points, parallel_points, pyramid_points, tronco_points)
 
     # TERCEIRA QUESTÃO
-    cube_points, pyramid_points = q3(cube_points,pyramid_points)
+    cube_points, pyramid_points = q3(cube_points, pyramid_points, parallel_points, tronco_points)
 
     # QUARTA QUESTÃO
-    q4(cube_points,pyramid_points)
+    q4(cube_points, pyramid_points)

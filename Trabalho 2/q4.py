@@ -1,7 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from utils import get_rectangle_faces, get_triangle_faces, make_rectangle, plot_image, make_triangle, iterable_to_list, \
-    get_edges
+from utils import get_rectangle_faces, get_triangle_faces, iterable_to_list, get_edges
 
 
 def q4(cube, pyramid):
@@ -26,4 +25,5 @@ def q4(cube, pyramid):
         aresta = np.array(aresta)
         ax.plot(aresta[:, 0], aresta[:, 1], color='red')
 
+    plt.gca().set_aspect('equal')
     plt.show()
