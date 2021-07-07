@@ -65,12 +65,12 @@ if __name__ == "__main__":
 
     # OPCIONAL
     eyes = [np.array([i, -3, 3]) for i in np.arange(-2, 8, .5)]
-    for eye in eyes:
+    for i, eye in enumerate(eyes):
         # TERCEIRA QUESTÃO
         c_points, p_points = q3(copy(cube_points), copy(pyramid_points), copy(parallel_points), copy(tronco_points),
                                 eye)
 
         # QUARTA QUESTÃO
-        q4(c_points, p_points)
+        q4(c_points, p_points, show=False, filename=str(i) + ".png")
 
     make_gif()

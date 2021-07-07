@@ -1,5 +1,3 @@
-import datetime
-
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -7,7 +5,7 @@ from trab_2 import ROOT_DIR
 from utils import get_rectangle_faces, get_triangle_faces, iterable_to_list, get_edges
 
 
-def q4(cube, pyramid, show=False):
+def q4(cube, pyramid, show=False, filename=""):
     matriz_projecao = [[1, 0, 0], [0, 1, 0], [0, 0, 0]]
 
     fig = plt.figure()
@@ -35,4 +33,4 @@ def q4(cube, pyramid, show=False):
     if show:
         plt.show()
     else:
-        plt.savefig(ROOT_DIR / 'gif_images' / (str(datetime.datetime.now()) + '.png'))
+        plt.savefig(ROOT_DIR / 'gif_images' / filename)

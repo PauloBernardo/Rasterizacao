@@ -1,5 +1,4 @@
 import os
-import pathlib
 from collections.abc import Iterable
 
 import imageio as imageio
@@ -132,15 +131,18 @@ def iterable_to_list(data):
         return data
     return data
 
+
 def make_gif(dir='gif_images'):
-    with imageio.get_writer(ROOT_DIR/'movie.gif', mode='I',duration=0.1) as writer:
-        for filename in sorted(os.listdir(ROOT_DIR/dir)):
+    with imageio.get_writer(ROOT_DIR / 'movie.gif', mode='I', duration=0.1) as writer:
+        for filename in sorted(os.listdir(ROOT_DIR / dir)):
             print(filename)
             if filename.endswith(".png"):
-                image = imageio.imread(str((ROOT_DIR/dir/filename)))
+                image = imageio.imread(str((ROOT_DIR / dir / filename)))
                 writer.append_data(image)
     for image in os.listdir(ROOT_DIR/dir):
         if image.endswith(".png"):
             os.remove(ROOT_DIR/dir/image)
+
+
 if __name__ == '__main__':
     make_gif()
