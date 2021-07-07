@@ -54,12 +54,21 @@ if __name__ == "__main__":
     q1(cube_points, parallel_points, pyramid_points, tronco_points)
 
     # SEGUNDA QUESTÃO
-    cube_points, parallel_points, pyramid_points, tronco_points = q2(cube_points, parallel_points, pyramid_points, tronco_points)
+    cube_points, parallel_points, pyramid_points, tronco_points = q2(cube_points, parallel_points, pyramid_points,
+                                                                     tronco_points)
+    # TERCEIRA QUESTÃO
+    c_points, p_points = q3(copy(cube_points), copy(pyramid_points), copy(parallel_points), copy(tronco_points),
+                            np.array([3, -3, 3]), True)
 
-    eyes = [np.array([i,-3,3]) for i in np.arange(-2,8,.5)]
+    # QUARTA QUESTÃO
+    q4(c_points, p_points, True)
+
+    # OPCIONAL
+    eyes = [np.array([i, -3, 3]) for i in np.arange(-2, 8, .5)]
     for eye in eyes:
         # TERCEIRA QUESTÃO
-        c_points, p_points = q3(copy(cube_points), copy(pyramid_points), copy(parallel_points), copy(tronco_points),eye)
+        c_points, p_points = q3(copy(cube_points), copy(pyramid_points), copy(parallel_points), copy(tronco_points),
+                                eye)
 
         # QUARTA QUESTÃO
         q4(c_points, p_points)

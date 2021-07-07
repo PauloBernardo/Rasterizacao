@@ -1,0 +1,1 @@
+# Precisa desta pasta para salvar imagens
