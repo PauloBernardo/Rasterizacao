@@ -1,5 +1,9 @@
+import datetime
+
 import numpy as np
 from matplotlib import pyplot as plt
+
+from trab_2 import ROOT_DIR
 from utils import get_rectangle_faces, get_triangle_faces, iterable_to_list, get_edges
 
 
@@ -26,4 +30,7 @@ def q4(cube, pyramid):
         ax.plot(aresta[:, 0], aresta[:, 1], color='red')
 
     plt.gca().set_aspect('equal')
+    ax.set_xlim([-6,6])
+    ax.set_ylim([-6,6])
+    plt.savefig(ROOT_DIR/'gif_images'/(str(datetime.datetime.now())+'.png'))
     plt.show()

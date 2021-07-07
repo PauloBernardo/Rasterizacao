@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import numpy as np
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
@@ -103,9 +105,7 @@ def draw_camera_and_vectors_in_world(ponto_camera, vetor_up, vetor_n, vetor_u, v
     plt.show()
 
 
-def q3(cube, pyramid, parallel, tronco):
-    # X,Y,Z
-    ponto_camera = np.array([3, -3, 3])
+def q3(cube, pyramid, parallel, tronco, ponto_camera=np.array([3, -3, 3])):
 
     cube = np.array(cube)
     centro_cubo = [(max(cube[:, i]) + min(cube[:, i])) / 2 for i in range(3)]
@@ -196,6 +196,7 @@ def q3(cube, pyramid, parallel, tronco):
     ax.set_xlabel("X")
     ax.set_ylabel("Y")
     ax.set_zlabel("Z")
+
 
     plt.show()
 

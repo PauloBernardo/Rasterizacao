@@ -4,6 +4,7 @@ from q2 import q2
 from q1 import q1
 from q3 import q3
 from q4 import q4
+from utils import make_gif
 
 if __name__ == "__main__":
     cube_points = np.array(
@@ -53,8 +54,12 @@ if __name__ == "__main__":
     # SEGUNDA QUESTÃO
     cube_points, parallel_points, pyramid_points, tronco_points = q2(cube_points, parallel_points, pyramid_points, tronco_points)
 
-    # TERCEIRA QUESTÃO
-    cube_points, pyramid_points = q3(cube_points, pyramid_points, parallel_points, tronco_points)
+    eyes = [np.array([i,-3,3]) for i in np.arange(-2,8,.5)]
+    for eye in eyes:
+        # TERCEIRA QUESTÃO
+        cube_points, pyramid_points = q3(cube_points, pyramid_points, parallel_points, tronco_points,i)
 
-    # QUARTA QUESTÃO
-    q4(cube_points, pyramid_points)
+        # QUARTA QUESTÃO
+        q4(cube_points, pyramid_points)
+
+    make_gif()

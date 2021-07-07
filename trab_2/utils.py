@@ -1,8 +1,13 @@
+import os
+import pathlib
 from collections.abc import Iterable
 
+import imageio as imageio
 import numpy as np
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import matplotlib.pyplot as plt
+
+from trab_2 import ROOT_DIR
 
 
 def get_rectangle_faces(Z):
@@ -125,3 +130,11 @@ def iterable_to_list(data):
         return data
     return data
 
+def make_gif(dir='gif_images'):
+    with imageio.get_writer(ROOT_DIR/'movie.gif', mode='I',duration=0.5) as writer:
+        for filename in sorted(os.listdir(dir)):
+            print(filename)
+            image = imageio.imread(str((ROOT_DIR/dir/filename)))
+            writer.append_data(image)
+if __name__ == '__main__':
+    make_gif()
