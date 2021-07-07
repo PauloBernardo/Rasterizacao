@@ -111,9 +111,10 @@ def q3(cube, pyramid, parallel, tronco, ponto_camera=np.array([3, -3, 3]), show=
 
     ponto_medio = np.add(centro_cubo, centro_piramide) / 2
 
-    print("Centro cubo", centro_cubo)
-    print("Centro pirâmide", centro_piramide)
-    print("Ponto médio", ponto_medio)
+    if show:
+        print("Centro cubo", centro_cubo)
+        print("Centro pirâmide", centro_piramide)
+        print("Ponto médio", ponto_medio)
 
     vetor_n = np.subtract(ponto_camera, ponto_medio)
 
@@ -122,14 +123,15 @@ def q3(cube, pyramid, parallel, tronco, ponto_camera=np.array([3, -3, 3]), show=
     vetor_u = np.cross(vetor_up, vetor_n)
     vetor_v = np.cross(vetor_n, vetor_u)
 
-    print("Vetor n, u e v:", vetor_n, vetor_u, vetor_v)
+    if show:
+        print("Vetor n, u e v:", vetor_n, vetor_u, vetor_v)
 
     vetor_n = np.divide(vetor_n, np.linalg.norm(vetor_n))
     vetor_u = np.divide(vetor_u, np.linalg.norm(vetor_u))
     vetor_v = np.divide(vetor_v, np.linalg.norm(vetor_v))
 
-    print("Vetor n, u e v:", vetor_n, vetor_u, vetor_v)
-
+    if show:
+        print("Vetor n, u e v:", vetor_n, vetor_u, vetor_v)
 
     # base = [vetor_n, vetor_u, vetor_v]
     # inv = np.linalg.inv(base)
@@ -154,12 +156,14 @@ def q3(cube, pyramid, parallel, tronco, ponto_camera=np.array([3, -3, 3]), show=
         p = (V * p.transpose()).transpose()[0:8]
         return np.array([[point[0], point[1], point[2]] for point in p.A])
 
-    print("Transformação V", V)
+    if show:
+        print("Transformação V", V)
     cubo_projetado = transform_camera(cube)
     piramide_projetada = transform_camera(pyramid)
 
     if show:
-        draw_camera_and_vectors_in_world(ponto_camera, vetor_up, vetor_n, vetor_u, vetor_v, cube, pyramid, parallel, tronco)
+        draw_camera_and_vectors_in_world(ponto_camera, vetor_up, vetor_n, vetor_u, vetor_v, cube, pyramid, parallel,
+                                         tronco)
 
         fig = plt.figure()
         ax = fig.add_subplot(111, projection="3d")

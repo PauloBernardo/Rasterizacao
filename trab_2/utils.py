@@ -125,7 +125,6 @@ def iterable_to_list(data):
     if isinstance(data, Iterable):
         data = list(data)
         for i, item in enumerate(data):
-            print(item)
             data[i] = iterable_to_list(item)
     else:
         return data
@@ -135,7 +134,6 @@ def iterable_to_list(data):
 def make_gif(dir='gif_images'):
     with imageio.get_writer(ROOT_DIR / 'movie.gif', mode='I', duration=0.1) as writer:
         for filename in sorted(os.listdir(ROOT_DIR / dir)):
-            print(filename)
             if filename.endswith(".png"):
                 image = imageio.imread(str((ROOT_DIR / dir / filename)))
                 writer.append_data(image)
