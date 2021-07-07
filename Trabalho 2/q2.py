@@ -10,9 +10,9 @@ def q2(cube, parallel, pyramid, tronco):
 
     # Translaçẽs
     cube = make_translation(cube, 1, 1, 1)
-    parallel = make_translation(parallel, -5, -6, 1)
+    parallel = make_translation(parallel, -5, 1, 1)
     pyramid = make_translation(pyramid, 3, 3, 1)
-    tronco = make_translation(tronco, -2, -3, 1)
+    tronco = make_translation(tronco, -2, 3, 1)
 
     all_points = []
     all_points.extend(cube.tolist())
