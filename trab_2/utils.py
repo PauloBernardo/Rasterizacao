@@ -102,8 +102,10 @@ def plot_image(ax, verts, side_color="cyan", line_color="r"):
     ax.set_xlabel("X")
     ax.set_ylabel("Y")
     ax.set_zlabel("Z")
+    ax.auto_scale_xyz([-2, 5], [-2, 5], [-2, 5])
 
     plt.show()
+
 
 def get_face_edges(face):
     faces = set()
