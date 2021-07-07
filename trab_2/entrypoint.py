@@ -71,6 +71,6 @@ if __name__ == "__main__":
                                 eye)
 
         # QUARTA QUESTÃO
-        q4(c_points, p_points, show=False, filename=str(i) + ".png")
+        q4(c_points, p_points, show=False)
 
     make_gif()
