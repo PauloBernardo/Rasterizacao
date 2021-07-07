@@ -133,10 +133,12 @@ def iterable_to_list(data):
     return data
 
 def make_gif(dir='gif_images'):
-    with imageio.get_writer(ROOT_DIR/'movie.gif', mode='I',duration=0.5) as writer:
+    with imageio.get_writer(ROOT_DIR/'movie.gif', mode='I',duration=0.1) as writer:
         for filename in sorted(os.listdir(dir)):
             print(filename)
             image = imageio.imread(str((ROOT_DIR/dir/filename)))
             writer.append_data(image)
+    for image in os.listdir():
+        os.remove(image)
 if __name__ == '__main__':
     make_gif()

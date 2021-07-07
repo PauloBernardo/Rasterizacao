@@ -1,3 +1,5 @@
+from copy import copy
+
 import numpy as np
 
 from q2 import q2
@@ -57,9 +59,9 @@ if __name__ == "__main__":
     eyes = [np.array([i,-3,3]) for i in np.arange(-2,8,.5)]
     for eye in eyes:
         # TERCEIRA QUESTÃO
-        cube_points, pyramid_points = q3(cube_points, pyramid_points, parallel_points, tronco_points,i)
+        c_points, p_points = q3(copy(cube_points), copy(pyramid_points), copy(parallel_points), copy(tronco_points),eye)
 
         # QUARTA QUESTÃO
-        q4(cube_points, pyramid_points)
+        q4(c_points, p_points)
 
     make_gif()
